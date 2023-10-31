@@ -1,0 +1,31 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Topics</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for topic in topics %}
+                            <li class="list-group-item">
+                                <a href="{% url 'learning_logs:topic' topic.id %}" class="text-decoration-none text-dark">
+                                    {{ topic }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">¯\_(ツ)_/¯</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">Add a topic</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

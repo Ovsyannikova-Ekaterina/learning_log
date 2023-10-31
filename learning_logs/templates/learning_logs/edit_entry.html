@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Entry</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
+</head>
+<body>
+{% extends "learning_logs/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Edit "{{ topic }}"</h2>
+                    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.text|add_class:'form-control'|attr:"placeholder: Entry Text" }}
+                            {% for error in form.text.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Save changes</button>
+                    </form>
+                    <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-secondary btn-block mt-2">Back to the entries</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+{% endblock content %}
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Entries for topic: {{ topic }}</h2>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary mb-3">Add entry</a>
+                    <ul class="list-group list-group-flush">
+                        {% for entry in entries %}
+                            <li class="list-group-item">
+                                <p class="mb-1"><small>{{ entry.date_added|date:'M d, Y H:i' }}</small></p>
+                                <p class="mb-1">{{ entry.text|linebreaks }}</p>
+                                <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-secondary btn-sm">edit</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">no entries ฅ(＾・ω・＾ฅ)</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
