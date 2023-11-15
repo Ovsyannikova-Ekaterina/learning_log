@@ -1,30 +1,21 @@
 {% extends "learning_logs/base.html" %}
-{% load widget_tweaks %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>New entry</h2>
+{% endblock page_header %}
+
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="mb-0"><a href="{% url 'learning_logs:topic' topic.id %}" class="text-white text-decoration-none">{{ topic }}</a></h2>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Add a new entry:</h5>
-                    <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post' class="needs-validation" novalidate>
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            {{ form.title.label_tag }}
-                            {{ form.title|add_class:"form-control" }}
-                        </div>
-                        <div class="mb-3">
-                            {{ form.text.label_tag }}
-                            {{ form.text|add_class:"form-control" }}
-                        </div>
-                        <button name='submit' class="btn btn-primary">Add Entry</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
+    <form method="post" action="{% url 'learning_logs:new_entry' topic.id %}" class="form">
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Create</button>
+        {% endbuttons %}
+
+        <input type="hidden" name="next" value="{% url 'learning_logs:topics' %}"/>
+    </form>
 {% endblock content %}

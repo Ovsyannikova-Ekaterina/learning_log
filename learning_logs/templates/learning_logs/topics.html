@@ -1,31 +1,22 @@
 {% extends "learning_logs/base.html" %}
 
+{% block page_header %}
+    <h1>Topics</h1>
+{% endblock page_header %}
+
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="mb-0">Topics</h2>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        {% for topic in topics %}
-                            <li class="list-group-item">
-                                <a href="{% url 'learning_logs:topic' topic.id %}" class="text-decoration-none text-dark">
-                                    {{ topic }}
-                                </a>
-                            </li>
-                        {% empty %}
-                            <li class="list-group-item">¯\_(ツ)_/¯</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">Add a topic</a>
-                </div>
-            </div>
+
+    {% for topic in topics %}
+        <div class="card" style="width: 100%;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+                </li>
+            </ul>
         </div>
-    </div>
-</div>
+    {% empty %}
+        <li><h4>No topics ¯\_(ツ)_/¯</h4></li>
+    {% endfor %}
+
+    <a class="btn btn-outline-info" href="{% url 'learning_logs:new_topic' %}"> Add new topic</a>
 {% endblock content %}

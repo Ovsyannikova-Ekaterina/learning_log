@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- Мета-теги для адаптивного дизайна -->
-    <title>learning_log</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"> <!-- Подключение стилей Bootstrap -->
-</head>
-<body>
-{% extends "learning_logs/base.html" %} <!-- Наследование шаблона от base" -->
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- Подключение библиотеки jQuery (нужна для Bootstrap) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Подключение скриптов Bootstrap -->
-</body>
-</html>
+{% extends "learning_logs/base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class='jumbotron'>
+            <h1 class="display-3">Hello, {{ user }}</h1>
+            <a class="btn btn-lg btn-primary" href="{% url 'learning_logs:topics' %}" role="button">Topics &raquo;</a>
+        </div>
+    {% else %}
+        <div class='jumbotron'>
+            <h1 class="display-3">Track your learning.</h1>
+            <p class="lead">Make your own Learning Log</p>
+            <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
+        </div>
+    {% endif %}
+{% endblock content %}

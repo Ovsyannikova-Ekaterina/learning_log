@@ -8,10 +8,10 @@ class Topic(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
     def __str__(self):
         """Возвращает строковое представление модели."""
         return self.text
+
 
 class Entry(models.Model):
     """Информация, изученная пользователем по теме"""
